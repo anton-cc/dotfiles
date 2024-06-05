@@ -37,7 +37,7 @@ static const unsigned int alphas[][3] = {
 };
 /* tagging */
 static const char *tags[] = {
-    "I", "II", "III", "IV", "V",
+    "󰣇 ", "2", "3", "4", "5", "6", "7", "8", "9", 
 };
 
 static const Rule rules[] = {
@@ -53,7 +53,7 @@ static const Rule rules[] = {
 /* layout(s) */
 static float mfact = 0.55;  /* factor of master area size [0.05..0.95] */
 static int nmaster = 1;     /* number of clients in master area */
-static int resizehints = 1; /* 1 means respect size hints in tiled resizals */
+static int resizehints = 0; /* 1 means respect size hints in tiled resizals */
 static int lockfullscreen = 1; /* 1 will force focus on the fullscreen window */
 
 #include "fibonacci.c"
@@ -65,7 +65,7 @@ static const Layout layouts[] = {
 };
 
 /* key definitions */
-#define MODKEY Mod1Mask
+#define MODKEY Mod4Mask
 #define TAGKEYS(KEY, TAG)                                                      \
   {MODKEY, KEY, view, {.ui = 1 << TAG}},                                       \
       {MODKEY | ControlMask, KEY, toggleview, {.ui = 1 << TAG}},               \
