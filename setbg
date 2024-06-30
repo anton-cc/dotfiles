@@ -1,0 +1,8 @@
+#!/bin/bash
+
+
+[ -f "$1" ] && cp "$1" ~/.config/wall.png && notify-send -i "$HOME/.config/wall.png" "wallpaper changed. "
+
+[ -d "$1" ] && mv "$(find "$1"/*.{jpg,jpeg,png} -type f | shuf -n 1)" ~/.config/wall.png && notify-send -i "$HOME/.config/wall.png" "Random wallpaper set." 
+
+xwallpaper --zoom ~/.config/wall.png
