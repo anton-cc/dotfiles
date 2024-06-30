@@ -1,0 +1,39 @@
+#!/bin/dash
+
+interval=0
+
+# load colors
+. /home/anton/.config/dwm/bar_themes/theme 
+
+cpu() {
+  cpu_val=$(grep -o "^[^ ]*" /proc/loadavg)
+
+  printf "^c$black^ ^b$green^ CPU"
+  printf "^c$white^ ^b$grey^ $cpu_val"
+}
+
+pkg_updates() {
+  updates=$({ timeout 20 checkupdates 2>/dev/null || true; } | wc -l) # arch
+
+  if [ -z "$updates" ]; then
+    printf "  ^c$green^    Fully Updated"
+  else
+    printf "  ^c$green^    $updates"" updates"
+  fi
+}
+mem() {
+  printf "^c$blue^^b$black^  "
+  printf "^c$blue^ $(free -h | awk '/^Mem/ { print $3 }' | sed s/i//g)"
+}
+clock() {
+	printf "^c$black^ ^b$darkblue^ 󱑆 "
+	printf "^c$white^^b$black^ $(date '+%H:%M')  "
+}
+
+while true; do
+
+  [ $interval = 0 ] || [ $(($interval % 3600)) = 0 ] && updates=$(pkg_updates)
+  interval=$((interval + 1))
+
+  sleep 1 && xsetroot -name "$updates  $(cpu) $(mem) $(clock)"
+done

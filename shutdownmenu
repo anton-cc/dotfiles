@@ -1,0 +1,23 @@
+#!/bin/bash
+
+options="Lock\nPoweroff\nReboot\nlogout"
+
+selected=$(echo -e $options | dmenu -i -p "Action: ")
+
+case $selected in 
+Lock)
+slock &
+;; 
+Poweroff)
+poweroff
+;;
+Reboot)
+reboot
+;;
+logout)
+pkill dwm &
+;;
+*)
+exit 1 
+;;
+esac
